@@ -51,6 +51,7 @@ async function scheduleSingleCronJob(job) {
         headers: {
             Authorization: `Bearer ${process.env.QSTASH_TOKEN}`,
             "Content-Type": "application/json",
+            "Upstash-Cron": job.cron,
         },
     });
 
