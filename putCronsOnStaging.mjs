@@ -10,7 +10,7 @@ if (process.env.ENVIRONMENT === "staging") {
 }
 
 async function fetchCurrentSchedules() {
-    const response = await fetch("https://qstash.upstash.io/v1/schedules", {
+    const response = await fetch(`${QSTASH_PREFIX_URL}/schedules`, {
         headers: {
             Authorization: `Bearer ${process.env.QSTASH_TOKEN}`,
         },
@@ -26,7 +26,9 @@ async function fetchCurrentSchedules() {
 async function destroyAllSchedules() {
     const schedules = await fetchCurrentSchedules();
     const promises = schedules.map(async (schedule) => {
-        const response = await fetch(`https://qstash.upstash.io/v1/schedules/${schedule.id}`, {
+        const url = `${QSTASH_PREFIX_URL}/schedules/${schedule.id}`;
+
+        const response = await fetch(url, {
             method: "DELETE",
             headers: {
                 Authorization: `Bearer ${process.env.QSTASH_TOKEN}`,
@@ -42,7 +44,7 @@ async function destroyAllSchedules() {
 }
 
 async function scheduleSingleCronJob(job) {
-    const url = process.env.QSTASH_URL + encodeURIComponent(job.endpoint);
+    const url = `${process.env.QSTASH_PREFIX_URL}/publish${encodeURIComponent(job.endpoint)}`;
 
     const response = await fetch(url, {
         method: "POST",

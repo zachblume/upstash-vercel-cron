@@ -9,7 +9,7 @@ This repo is a workaround for the staging-production difference, with a simple n
 ## Usage
 
 You'll need two environment variables set for your staging environment:
-- `UPSTASH_URL` - the url of your upstash redis instance
+- `QSTASH_PREFIX_URL` - the api prefix url of the current qstash version you're using
 - `UPSTASH_TOKEN` - the auth token for QStash
 - `ENVIRONMENT` - needs to be set to "staging" in the environment you want to trigger this script in (or you can rewrite the conditional)
 - `STAGING_CUSTOM_URL` - the custom url for your staging environment, so the script knows the callback prefix to pass to QStash
